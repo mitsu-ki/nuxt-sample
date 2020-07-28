@@ -4,17 +4,25 @@
   </div>
 </template>
 
+<script>
+export default {
+  head() {
+    return {
+      link: [
+        {
+          rel: "canonical",
+          href: `https://my-nuxt-sample.com${this.$route.path}/`
+        }
+      ]
+    };
+  }
+};
+</script>
+
 <style>
 html {
-  font-family:
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
