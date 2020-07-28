@@ -13,5 +13,7 @@
   "dependencies": {
     "nuxt": "^2.13.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nuxt-canonical": "^1.0.4"
+  }
 }
