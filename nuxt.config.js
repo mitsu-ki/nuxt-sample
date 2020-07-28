@@ -80,7 +80,8 @@ export default {
    ** 出力ディレクトリの設定を行っている
    */
   generate: {
-    dir: "./public"
+    dir: "./public",
+    fallback: false
   },
 
   hooks: {
