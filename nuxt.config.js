@@ -1,3 +1,18 @@
+const modifyHtml = html => {
+  // Add amp-custom tag to added CSS
+  html = html.replace(/<style data-vue-ssr/g, "<style amp-custom data-vue-ssr");
+  // Remove every script tag from generated HTML
+  html = html.replace(
+    /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
+    ""
+  );
+  // Add AMP script before </head>
+  const ampScript =
+    '<script async src="https://cdn.ampproject.org/v0.js"></script>';
+  html = html.replace("</head>", ampScript + "</head>");
+  return html;
+};
+
 export default {
   /*
    ** Nuxt rendering mode
@@ -29,7 +44,13 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ["~/assets/stylesheets/main.css"],
+
+  loading: false,
+  render: {
+    resourceHints: false
+  },
+
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
@@ -60,5 +81,22 @@ export default {
    */
   generate: {
     dir: "./public"
+  },
+
+  hooks: {
+    "generate:page": page => {
+      page.html = modifyHtml(page.html);
+
+      // 特定ページをAMP対応する場合
+      // if (page.route === '/enterprise/use-case/') {
+      //   page.html = modifyHtml(page.html);
+      // }
+    },
+    "render:route": (url, page, { req, res }) => {
+      page.html = modifyHtml(page.html);
+      // if (page.route === '/enterprise/use-case/') {
+      //   page.html = modifyHtml(page.html);
+      // }
+    }
   }
 };
